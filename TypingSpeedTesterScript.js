@@ -41,6 +41,13 @@
         }, 1000);
     }
 
+    // Function to escape HTML special characters
+    function escapeHTML(text) {
+        const div = document.createElement('div');
+        div.appendChild(document.createTextNode(text));
+        return div.innerHTML;
+    }
+
     // Stop the timer
     function stopTimer() {
         clearInterval(timerInterval);
@@ -55,13 +62,13 @@
         for (let i = 0; i < highlightedPrompt.innerText.length; i++) {
             if (i < typedText.length) {
                 if (typedText[i] === highlightedPrompt.innerText[i]) {
-                    highlightedText += `<span class="correct">${highlightedPrompt.innerText[i]}</span>`;
+                    highlightedText += `<span class="correct">${escapeHTML(highlightedPrompt.innerText[i])}</span>`;
                     correctChars++;
                 } else {
-                    highlightedText += `<span class="incorrect">${highlightedPrompt.innerText[i]}</span>`;
+                    highlightedText += `<span class="incorrect">${escapeHTML(highlightedPrompt.innerText[i])}</span>`;
                 }
             } else {
-                highlightedText += highlightedPrompt.innerText[i];
+                highlightedText += escapeHTML(highlightedPrompt.innerText[i]);
             }
         }
 
